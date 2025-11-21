@@ -1,0 +1,23 @@
+<ion-content class="login-bg">
+  <div class="login-container">
+    <h1 class="title">Iniciar sesión</h1>
+
+    <ion-item class="input-box">
+      <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-box">
+      <ion-input
+        placeholder="Contraseña"
+        type="password"
+        [(ngModel)]="password"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="onLogin()">Entrar</ion-button>
+
+    <ion-button expand="block" fill="clear" [routerLink]="['/create-acount']">
+      Crear cuenta
+    </ion-button>
+  </div>
+</ion-content>

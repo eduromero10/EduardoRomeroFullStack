@@ -1,0 +1,74 @@
+<ion-content class="profile-bg">
+
+  <div class="profile-wrapper">
+
+    <!-- Cabecera -->
+    <section class="profile-header-card">
+      <div class="avatar-wrapper">
+        <img [src]="avatarUrl" alt="avatar" class="profile-avatar" />
+      </div>
+
+      <div class="profile-info">
+        <h1 class="profile-title">Perfil del usuario</h1>
+
+        <p *ngIf="viewedUser" class="profile-subtitle">
+          @{{ viewedUser.username }}
+          <span *ngIf="viewedUser.created_at">
+            · desde {{ viewedUser.created_at | date : 'dd/MM/yyyy' }}
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Orden -->
+    <section class="order-card">
+      <ion-segment [value]="order" (ionChange)="onOrderChange($event)">
+        <ion-segment-button value="desc">
+          <ion-label>Mejor valoradas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="asc">
+          <ion-label>Peor valoradas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </section>
+
+    <!-- Lista de reseñas -->
+    <section class="reviews-card">
+      <div *ngIf="reviews.length === 0" class="no-reviews">
+        Este usuario aún no tiene reseñas.
+      </div>
+
+      <div *ngFor="let r of reviews" class="review-item">
+        <div class="review-main">
+          <div class="review-header">
+            <h3 class="review-book">{{ r.book_title }}</h3>
+            <span class="review-rating">⭐ {{ r.rating }}/10</span>
+          </div>
+
+          <p class="review-date">
+            {{ r.created_at | date : 'dd/MM/yyyy HH:mm' }}
+          </p>
+
+          <p *ngIf="r.comment" class="review-comment">
+            {{ r.comment }}
+          </p>
+        </div>
+
+        <img
+          *ngIf="r.image_url"
+          [src]="r.image_url"
+          alt="foto libro"
+          class="review-image"
+        />
+      </div>
+    </section>
+
+    <!-- 🔙 BOTÓN VOLVER -->
+    <div class="back-btn-wrapper">
+      <button class="back-button" (click)="goBack()">
+        ← VOLVER A LA LISTA DE LIBROS
+      </button>
+    </div>
+
+  </div>
+</ion-content>

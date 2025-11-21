@@ -1,0 +1,222 @@
+.profile-bg {
+  --background: radial-gradient(circle at top, #020617, #000000 65%);
+}
+
+.profile-wrapper {
+  padding: 16px 12px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* CABECERA */
+
+.profile-header-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #020617;
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.avatar-wrapper {
+  flex: 0 0 auto;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid #facc15;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-title {
+  margin: 0 0 2px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.profile-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+/* ORDEN */
+
+.order-card {
+  margin-top: 14px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 6px 6px 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+ion-segment {
+  --background: transparent;
+  --indicator-color: #1d4ed8;
+  --color-checked: #0ac6ff;
+  --color: #05cdff;
+}
+
+ion-segment-button::part(indicator) {
+  border-radius: 10px;
+}
+
+/* borde azul siempre visible */
+ion-segment-button.segment-button-checked::part(native),
+ion-segment-button[aria-checked="true"]::part(native) {
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+}
+
+/* LISTA RESEÑAS */
+
+.reviews-card {
+  margin-top: 8px;
+  background: #020617;
+  border-radius: 18px;
+  padding: 10px 12px 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.no-reviews {
+  text-align: center;
+  font-size: 20px;
+  color: #9e9c9c;
+  padding: 12px 4px;
+}
+
+.review-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.review-item + .review-item {
+  margin-top: 6px;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.review-selected {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* EDICIÓN */
+
+.edit-card {
+  margin-top: 14px;
+  background: #020617;
+  border-radius: 18px;
+  padding: 12px 14px 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(55, 65, 81, 0.9);
+}
+
+.edit-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.edit-subtitle {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.edit-selected {
+  color: #f9fafb;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.field-label {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.input-basic {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  padding: 8px 10px;
+  font-size: 14px;
+  background: #000000;
+  color: #ffffff;
+}
+
+.input-basic::placeholder {
+  color: #ffffff;
+}
+
+.textarea-basic {
+  min-height: 90px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-update,
+.btn-delete,
+.btn-clear {
+  flex: 1 1 auto;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f9fafb;
+}
+
+.btn-update {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+.btn-delete {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.btn-clear {
+  background: linear-gradient(90deg, #4b5563, #6b7280);
+}
+
+/* BOTÓN VOLVER */
+.btn-back-books {
+  width: 100%;
+  margin-top: 12px;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #1e293b, #0f172a);
+  color: #f1f5f9;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
+}

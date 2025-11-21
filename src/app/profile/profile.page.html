@@ -1,0 +1,117 @@
+<ion-content class="profile-bg">
+  <div class="profile-wrapper">
+
+    <!-- CABECERA PERFIL -->
+    <div class="profile-header-card">
+      <div class="avatar-wrapper">
+        <img [src]="avatarUrl" alt="avatar" class="profile-avatar" />
+      </div>
+
+      <div class="profile-info">
+        <h1 class="profile-title">{{ titleText }}</h1>
+        <p class="profile-subtitle" *ngIf="viewedUser">
+          @{{ viewedUser.username }}
+          <span *ngIf="viewedUser.created_at">
+            · desde {{ viewedUser.created_at | date : 'dd/MM/yyyy' }}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ORDENAR RESEÑAS -->
+    <div class="order-card">
+      <ion-segment [value]="order" (ionChange)="onOrderChange($event)">
+        <ion-segment-button value="desc">
+          <ion-label>Mejor valoradas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="asc">
+          <ion-label>Peor valoradas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <!-- LISTA DE RESEÑAS -->
+    <div class="reviews-card">
+      <p class="no-reviews" *ngIf="reviews.length === 0">
+        Este usuario todavía no tiene reseñas.
+      </p>
+
+      <div
+        class="review-item"
+        *ngFor="let r of reviews"
+        (click)="selectReview(r)"
+        [class.review-selected]="isCurrentUser && selectedReview?.id === r.id"
+      >
+        <div class="review-main">
+          <div class="review-header">
+            <h3 class="review-book">{{ r.book_title }}</h3>
+            <div class="review-rating">
+              ⭐ {{ r.rating }}/10
+            </div>
+          </div>
+
+          <p class="review-date">
+            {{ r.created_at | date : 'dd/MM/yyyy HH:mm' }}
+          </p>
+
+          <p class="review-comment" *ngIf="r.comment">
+            {{ r.comment }}
+          </p>
+        </div>
+
+        <img
+          *ngIf="r.book_image"
+          [src]="r.book_image"
+          alt="portada"
+          class="review-image"
+        />
+      </div>
+    </div>
+
+    <!-- EDICIÓN (SOLO MI PERFIL) -->
+    <div class="edit-card" *ngIf="isCurrentUser">
+      <h2 class="edit-title">Editar / borrar reseña</h2>
+
+      <p class="edit-selected" *ngIf="!selectedReview">
+        Toca una reseña de la lista para editarla.
+      </p>
+      <p class="edit-subtitle" *ngIf="selectedReview">
+        Editando reseña de: <strong>{{ selectedReview.book_title }}</strong>
+      </p>
+
+      <label class="field-label">Valoración (0 - 10)</label>
+      <ion-input
+        type="number"
+        class="input-basic"
+        [(ngModel)]="editRating"
+        min="0"
+        max="10"
+      ></ion-input>
+
+      <label class="field-label">Comentario</label>
+      <ion-textarea
+        class="input-basic textarea-basic"
+        auto-grow="true"
+        [(ngModel)]="editComment"
+      ></ion-textarea>
+
+      <div class="edit-buttons">
+        <button class="btn-update" (click)="updateSelectedReview()">
+          Actualizar
+        </button>
+        <button class="btn-delete" (click)="deleteSelectedReview()">
+          Eliminar
+        </button>
+        <button class="btn-clear" (click)="clearSelection()">
+          Limpiar selección
+        </button>
+      </div>
+
+      <!-- 🔵 NUEVO BOTÓN: VOLVER A LA LISTA DE LIBROS -->
+      <button class="btn-back-books" routerLink="/book-list">
+        ← Volver a la lista de libros
+      </button>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,176 @@
+.profile-bg {
+  --background: radial-gradient(circle at top, #020617, #000000 65%);
+}
+
+.profile-wrapper {
+  padding: 16px 12px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* tarjeta cabecera */
+
+.profile-header-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #020617;
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.avatar-wrapper {
+  flex: 0 0 auto;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid #facc15;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-title {
+  margin: 0 0 2px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.profile-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* orden */
+
+.order-card {
+  margin-top: 14px;
+  margin-bottom: 10px;
+  background: #020617;
+  border-radius: 14px;
+  padding: 6px 6px 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(55, 65, 81, 0.8);
+}
+
+ion-segment {
+  --background: transparent;
+  --indicator-color: #1d4ed8;
+  --color-checked: #f9fafb;
+  --color: #e5e7eb;
+}
+
+/* reseñas */
+
+.reviews-card {
+  margin-top: 8px;
+  background: #020617;
+  border-radius: 18px;
+  padding: 10px 12px 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.no-reviews {
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+  padding: 12px 4px;
+}
+
+.review-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  background: #020617;
+}
+
+.review-item + .review-item {
+  margin-top: 6px;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.review-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+
+.review-book {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.review-rating {
+  font-size: 13px;
+  color: #facc15;
+}
+
+.review-date {
+  margin: 2px 0 4px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.review-comment {
+  margin: 0;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.review-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #111827;
+}
+
+/* ========================= */
+/*   BOTÓN VOLVER (IONIC)   */
+/* ========================= */
+
+.back-btn-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 22px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+ion-button.back-btn {
+  --background: linear-gradient(180deg, #1b2436 0%, #0f1828 100%);
+  --background-hover: linear-gradient(180deg, #26324a 0%, #182335 100%);
+  --background-activated: linear-gradient(180deg, #26324a 0%, #182335 100%);
+  --border-radius: 999px;
+  --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+  --color: #e5e7eb;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  justify-content: center;
+}

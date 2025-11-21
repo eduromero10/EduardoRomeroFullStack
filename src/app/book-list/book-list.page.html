@@ -1,0 +1,144 @@
+<ion-content class="booklist-bg">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <button class="avatar-btn" (click)="goToMyProfile()">
+      <img [src]="avatarUrl" alt="avatar" class="avatar-img" />
+    </button>
+
+    <h1 class="app-title">BOOKBOX</h1>
+
+    <div class="top-bar-spacer"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- BUSCAR USUARIO -->
+    <section class="card card-search-user">
+      <label class="section-label">Buscar usuario</label>
+
+      <div class="search-row">
+        <div class="search-input-wrapper">
+          <ion-icon name="search-outline" class="icon-inline"></ion-icon>
+          <input
+            type="text"
+            [(ngModel)]="userSearchTerm"
+            (input)="onUserSearchChange()"
+            placeholder="Nombre de usuario"
+          />
+          <button *ngIf="userSearchTerm" class="clear-btn" (click)="clearUserSearch()">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- desplegable -->
+      <ul *ngIf="showUserSuggestions" class="suggestions-list">
+        <li
+          *ngFor="let u of userSuggestions"
+          (click)="selectUserFromSuggestions(u)"
+        >
+          <img
+            [src]="u.profile_image || 'assets/default-avatar.png'"
+            class="suggestion-avatar"
+          />
+          <span>{{ u.username }}</span>
+        </li>
+      </ul>
+
+      <button class="btn-search-profile" (click)="onSearchProfileClick()">
+        BUSCAR PERFIL
+      </button>
+    </section>
+
+    <!-- LIBROS -->
+    <section class="card card-books">
+      <h2 class="card-title">Libros</h2>
+
+      <div class="search-row">
+        <div class="search-input-wrapper">
+          <ion-icon name="search-outline" class="icon-inline"></ion-icon>
+          <input
+            type="text"
+            [(ngModel)]="bookSearchTerm"
+            (input)="onBookSearchChange()"
+            placeholder="Buscar libro por nombre"
+          />
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <label>Autor</label>
+        <select [(ngModel)]="selectedAuthor" (change)="onAuthorChange()">
+          <option *ngFor="let a of authors" [value]="a">{{ a }}</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="book-list">
+        <div
+          class="book-item"
+          *ngFor="let book of filteredBooks"
+          (click)="selectBook(book)"
+        >
+          <img
+            [src]="book.cover_url || 'assets/default-cover.png'"
+            alt="Portada"
+            class="book-cover"
+          />
+
+          <div class="book-info">
+            <h3 class="book-title">{{ book.title }}</h3>
+            <p class="book-author">{{ book.author }}</p>
+            <p class="book-rating">
+              ⭐
+              <span *ngIf="book.review_count > 0">
+                {{ book.avg_rating | number : '1.1-1' }} ({{ book.review_count }})
+              </span>
+              <span *ngIf="book.review_count === 0">
+                Sin valoraciones
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEJAR RESEÑA -->
+    <section class="card card-review">
+      <h2 class="card-title">Dejar reseña</h2>
+
+      <p class="selected-book">
+        Libro seleccionado:
+        <strong>
+          {{ selectedBook ? selectedBook.title : 'Ninguno (toca un libro de la lista)' }}
+        </strong>
+      </p>
+
+      <label class="field-label">Valoración (0 - 10)</label>
+      <input
+        type="number"
+        min="0"
+        max="10"
+        [(ngModel)]="ratingInput"
+        class="input-basic"
+      />
+
+      <label class="field-label">Comentario</label>
+      <textarea
+        rows="4"
+        [(ngModel)]="commentInput"
+        class="input-basic textarea-basic"
+      ></textarea>
+
+      <label class="field-label">Foto opcional del libro:</label>
+      <input type="file" (change)="onBookImageChange($event)" />
+
+      <button class="btn-save-review" (click)="saveReview()">
+        Guardar reseña
+      </button>
+    </section>
+
+  </div>
+</ion-content>
