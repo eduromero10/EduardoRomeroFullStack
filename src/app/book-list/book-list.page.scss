@@ -8,8 +8,6 @@
   margin: 0 auto;
 }
 
-/* ========= TOP BAR ========= */
-
 .top-bar {
   display: flex;
   align-items: center;
@@ -50,9 +48,7 @@
   -webkit-background-clip: text;
   color: transparent;
 }
-
-/* ========= CARDS ========= */
-
+/**/
 .card {
   background: #020617;
   border-radius: 18px;
@@ -69,8 +65,6 @@
   color: #e5e7eb;
 }
 
-/* ========= TEXTOS ========= */
-
 .section-label {
   font-size: 12px;
   text-transform: uppercase;
@@ -78,8 +72,6 @@
   color: #9ca3af;
   margin-bottom: 8px;
 }
-
-/* ========= SEARCH INPUTS ========= */
 
 .search-row {
   margin-bottom: 8px;
@@ -120,7 +112,7 @@
   font-size: 14px;
 }
 
-/* ========= SUGERENCIAS USUARIO ========= */
+/*otros usuarios*/
 
 .suggestions-list {
   margin: 4px 0 8px;
@@ -157,7 +149,7 @@
   object-fit: cover;
 }
 
-/* ========= BOTÓN BUSCAR PERFIL ========= */
+/*buscar perfil*/
 
 .btn-search-profile {
   width: 100%;
@@ -173,7 +165,7 @@
   color: #f9fafb;
 }
 
-/* ========= FILTRO AUTOR ========= */
+/*autores*/
 
 .filter-row {
   display: flex;
@@ -205,7 +197,7 @@
   background: radial-gradient(circle, rgba(148, 163, 184, 0.5), transparent);
 }
 
-/* ========= LISTA LIBROS ========= */
+/*listados*/
 
 .book-list {
   display: flex;
@@ -259,7 +251,7 @@
   color: #facc15;
 }
 
-/* ========= DEJAR RESEÑA ========= */
+/*reseñas*/
 
 .card-review .selected-book {
   font-size: 13px;
@@ -307,7 +299,7 @@
   color: #f9fafb;
 }
 
-/* ========= INPUT FILE ========= */
+/*inputs*/
 
 input[type='file'] {
   color: #f9fafb;

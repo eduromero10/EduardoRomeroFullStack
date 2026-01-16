@@ -1,7 +1,6 @@
 <ion-content class="profile-bg">
   <div class="profile-wrapper">
 
-    <!-- CABECERA -->
     <div class="profile-header-card">
       <div class="avatar-wrapper">
         <img [src]="avatarUrl" alt="avatar" class="profile-avatar" />
@@ -18,7 +17,7 @@
       </div>
     </div>
 
-    <!-- ORDENAR -->
+    <!--Orden por valoración-->
     <div class="order-card">
       <ion-segment [value]="order" (ionChange)="onOrderChange($event)">
         <ion-segment-button value="desc">
@@ -30,7 +29,7 @@
       </ion-segment>
     </div>
 
-    <!-- LISTA DE RESEÑAS -->
+    <!--Reseñas-->
     <div class="reviews-card">
       <p class="no-reviews" *ngIf="reviews.length === 0">
         Este usuario todavía no tiene reseñas.
@@ -68,7 +67,7 @@
       </div>
     </div>
 
-    <!-- EDICIÓN -->
+    <!--editar reseñas-->
     <div class="edit-card" *ngIf="isCurrentUser">
       <h2 class="edit-title">Editar / borrar reseña</h2>
 
@@ -110,6 +109,7 @@
           Limpiar selección
         </button>
 
+      <!--Volver-->
         <div class="back-btn-container">
           <ion-button
             expand="block"

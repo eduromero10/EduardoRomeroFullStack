@@ -34,7 +34,8 @@ export class OtherProfilePage implements OnInit {
     this.loadUser();
     this.loadReviews();
   }
-
+  
+//Cargar usuario
   loadUser(): void {
     this.http
       .get<any>(`${environment.apiUrl}/api/users/${this.userId}`)

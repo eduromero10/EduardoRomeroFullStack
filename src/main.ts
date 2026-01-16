@@ -1,4 +1,3 @@
-// src/main.ts
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import {
@@ -23,11 +22,9 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideIonicAngular(),
-
-    // HTTP client + interceptores desde DI
     provideHttpClient(withInterceptorsFromDi()),
 
-    // Registro del interceptor Bearer
+    //Bearer
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
