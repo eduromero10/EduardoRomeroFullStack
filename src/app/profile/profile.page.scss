@@ -73,9 +73,7 @@ ion-segment-button::part(indicator) {
   border-radius: 10px;
 }
 
-/* borde azul siempre visible */
-ion-segment-button.segment-button-checked::part(native),
-ion-segment-button[aria-checked="true"]::part(native) {
+ion-segment-button.segment-button-checked::part(native) {
   border: 2px solid #3b82f6;
   border-radius: 12px;
 }
@@ -94,7 +92,7 @@ ion-segment-button[aria-checked="true"]::part(native) {
 .no-reviews {
   text-align: center;
   font-size: 20px;
-  color: #9e9c9c;
+  color: #ffffff;
   padding: 12px 4px;
 }
 
@@ -103,7 +101,7 @@ ion-segment-button[aria-checked="true"]::part(native) {
   gap: 10px;
   padding: 8px 4px;
   border-radius: 12px;
-  background: #ffffff;
+  background: #020617;
   cursor: pointer;
 }
 
@@ -113,8 +111,53 @@ ion-segment-button[aria-checked="true"]::part(native) {
 }
 
 .review-selected {
-  background: #ffffff;
+  background: #0b1120;
   box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.review-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+
+.review-book {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.review-rating {
+  font-size: 13px;
+  color: #facc15;
+}
+
+.review-date {
+  margin: 2px 0 4px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.review-comment {
+  margin: 0;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.review-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #111827;
 }
 
 /* EDICIÓN */
@@ -206,17 +249,32 @@ ion-segment-button[aria-checked="true"]::part(native) {
   background: linear-gradient(90deg, #4b5563, #6b7280);
 }
 
-/* BOTÓN VOLVER */
-.btn-back-books {
+
+/* BOTÓN VOLVER  */
+
+
+.back-btn-container {
   width: 100%;
-  margin-top: 12px;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 0;
+  max-width: 480px;
+  margin: 22px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+ion-button.back-btn {
+  --background: linear-gradient(180deg, #1b2436 0%, #0f1828 100%);
+  --background-hover: linear-gradient(180deg, #26324a 0%, #182335 100%);
+  --background-activated: linear-gradient(180deg, #26324a 0%, #182335 100%);
+  --border-radius: 999px;
+  --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+  --color: #e5e7eb;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+
+  width: 100%;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #1e293b, #0f172a);
-  color: #f1f5f9;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
+  justify-content: center;
 }

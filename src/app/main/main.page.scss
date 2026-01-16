@@ -1,9 +1,9 @@
-/* Fondo general del login */
+/* Fondo general */
 .login-bg {
   --background: linear-gradient(180deg, #0f2245 0%, #154a8a 50%, #0b2140 100%);
 }
 
-/*Tarjeta blanca centrada*/
+/*Tarjeta*/
 .login-container {
   width: 90%;
   max-width: 420px;
@@ -14,7 +14,6 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* Título */
 .title {
   text-align: center;
   font-size: 24px;
@@ -23,8 +22,6 @@
   margin-bottom: 22px;
   color: #111827;
 }
-
-/* Campos */
 .input-box {
   --background: #f3f4f6;
   --border-radius: 12px;
@@ -41,7 +38,7 @@
   font-size: 14px;
 }
 
-/* Botón ENTRAR */
+/*ENTRAR */
 .login-container ion-button:nth-of-type(1) {
   margin-top: 10px;
   border-radius: 999px;
@@ -51,7 +48,7 @@
   --background-activated: linear-gradient(90deg, #0045c4, #0062d4);
 }
 
-/* Botón CREAR CUENTA */
+/*CREAR */
 .login-container ion-button:nth-of-type(2) {
   margin-top: 6px;
   border-radius: 999px;

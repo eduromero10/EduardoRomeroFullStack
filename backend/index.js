@@ -21,37 +21,43 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ====== MULTER (subida de imágenes) ======
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + path.extname(file.originalname)),
+  destination: (req, file, cb) => cb(null, path.join(__dirname, 'uploads')),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 const upload = multer({ storage });
 
-// ====== RUTA DE PRUEBA ======
+// ====== AUTH MIDDLEWARE (BEARER TOKEN) ======
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']; 
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) return res.status(401).json({ error: 'Token requerido' });
+
+  jwt.verify(token, process.env.JWT_SECRET || 'secreto', (err, payload) => {
+    if (err) return res.status(403).json({ error: 'Token inválido o expirado' });
+    req.user = payload; // { id, username }
+    next();
+  });
+}
+
 app.get('/', (req, res) => {
   res.json({ message: 'API funcionando' });
 });
 
-//                    USUARIOS
-
-
-// REGISTRO /api/users (con foto de perfil opcional)
+//USUARIOS
+//Registro 
 app.post('/api/users', upload.single('profile_image'), async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const profileImage = req.file
-      ? `http://localhost:${PORT}/uploads/${req.file.filename}`
-      : null;
+
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const profileImage = req.file ? `${baseUrl}/uploads/${req.file.filename}` : null;
 
     if (!username || !email || !password) {
       return res.status(400).json({ error: 'Faltan campos obligatorios' });
     }
 
-    // email único
-    const [existing] = await pool.query(
-      'SELECT id FROM users WHERE email = ?',
-      [email]
-    );
+    const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email]);
     if (existing.length > 0) {
       return res.status(409).json({ error: 'El email ya existe' });
     }
@@ -74,16 +80,12 @@ app.post('/api/users', upload.single('profile_image'), async (req, res) => {
   }
 });
 
-// LOGIN /api/login
+//LOGIN 
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const [rows] = await pool.query(
-      'SELECT * FROM users WHERE email = ?',
-      [email]
-    );
-
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     if (rows.length === 0) {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
@@ -117,7 +119,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Buscar usuarios por username (para desplegable)
+//usuarios por username 
 app.get('/api/users/search', async (req, res) => {
   try {
     const { username } = req.query;
@@ -153,7 +155,7 @@ app.get('/api/users/:id', async (req, res) => {
   }
 });
 
-// Reseñas de un usuario (para perfil)
+// Reseñas de un usuario
 app.get('/api/users/:id/reviews', async (req, res) => {
   try {
     const userId = req.params.id;
@@ -183,11 +185,8 @@ app.get('/api/users/:id/reviews', async (req, res) => {
   }
 });
 
-// ===================================================
-//                    LIBROS
-// ===================================================
-
-// Listado de libros con media de valoraciones
+//LIBROS
+// Libros + Media
 app.get('/api/books', async (req, res) => {
   try {
     const { title, author } = req.query;
@@ -231,12 +230,10 @@ app.get('/api/books', async (req, res) => {
   }
 });
 
-// Lista de autores (para el filtro)
+// Lista de autores
 app.get('/api/books/authors', async (req, res) => {
   try {
-    const [rows] = await pool.query(
-      'SELECT DISTINCT author FROM books ORDER BY author'
-    );
+    const [rows] = await pool.query('SELECT DISTINCT author FROM books ORDER BY author');
     res.json(rows);
   } catch (e) {
     console.error('Error listando autores:', e);
@@ -245,25 +242,29 @@ app.get('/api/books/authors', async (req, res) => {
 });
 
 //RESEÑAS
-// Crear reseña 
-app.post('/api/reviews', upload.single('book_image'), async (req, res) => {
+app.post('/api/reviews', authenticateToken, upload.single('book_image'), async (req, res) => {
   try {
-    const { bookId, userId, rating, comment } = req.body;
+    const { bookId, rating, comment } = req.body;
+    const userId = req.user.id;
 
-    if (!bookId || !userId || !rating) {
+    if (!bookId || rating === undefined || rating === null) {
       return res.status(400).json({ error: 'Faltan campos obligatorios' });
     }
 
-    const imageUrl = req.file
-      ? `http://localhost:${PORT}/uploads/${req.file.filename}`
-      : null;
+    const ratingNum = Number(rating);
+    if (Number.isNaN(ratingNum) || ratingNum < 0 || ratingNum > 10) {
+      return res.status(400).json({ error: 'Rating debe estar entre 0 y 10' });
+    }
+
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const imageUrl = req.file ? `${baseUrl}/uploads/${req.file.filename}` : null;
 
     await pool.query(
       `
       INSERT INTO reviews (book_id, user_id, rating, comment, image_url)
       VALUES (?, ?, ?, ?, ?)
       `,
-      [bookId, userId, rating, comment || null, imageUrl]
+      [bookId, userId, ratingNum, comment || null, imageUrl]
     );
 
     res.status(201).json({ message: 'Reseña guardada correctamente' });
@@ -272,26 +273,27 @@ app.post('/api/reviews', upload.single('book_image'), async (req, res) => {
     res.status(500).json({ error: 'Error del servidor' });
   }
 });
-// Actualizar reseña (rating + comentario)
-app.put('/api/reviews/:id', async (req, res) => {
+
+// Actualizar reseña 
+app.put('/api/reviews/:id', authenticateToken, async (req, res) => {
   try {
     const reviewId = req.params.id;
     const { rating, comment } = req.body;
+    const userId = req.user.id;
 
-    if (
-      rating === undefined ||
-      rating === null ||
-      isNaN(rating) ||
-      rating < 0 ||
-      rating > 10
-    ) {
+    const ratingNum = Number(rating);
+    if (Number.isNaN(ratingNum) || ratingNum < 0 || ratingNum > 10) {
       return res.status(400).json({ error: 'Rating debe estar entre 0 y 10' });
     }
 
-    await pool.query(
-      'UPDATE reviews SET rating = ?, comment = ? WHERE id = ?',
-      [rating, comment || null, reviewId]
+    const [result] = await pool.query(
+      'UPDATE reviews SET rating = ?, comment = ? WHERE id = ? AND user_id = ?',
+      [ratingNum, comment || null, reviewId, userId]
     );
+
+    if (result.affectedRows === 0) {
+      return res.status(403).json({ error: 'No tienes permiso para editar esta reseña' });
+    }
 
     res.json({ message: 'Reseña actualizada correctamente' });
   } catch (e) {
@@ -301,11 +303,19 @@ app.put('/api/reviews/:id', async (req, res) => {
 });
 
 // Eliminar reseña
-app.delete('/api/reviews/:id', async (req, res) => {
+app.delete('/api/reviews/:id', authenticateToken, async (req, res) => {
   try {
     const reviewId = req.params.id;
+    const userId = req.user.id;
 
-    await pool.query('DELETE FROM reviews WHERE id = ?', [reviewId]);
+    const [result] = await pool.query(
+      'DELETE FROM reviews WHERE id = ? AND user_id = ?',
+      [reviewId, userId]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(403).json({ error: 'No tienes permiso para eliminar esta reseña' });
+    }
 
     res.json({ message: 'Reseña eliminada correctamente' });
   } catch (e) {
@@ -314,8 +324,6 @@ app.delete('/api/reviews/:id', async (req, res) => {
   }
 });
 
-// ===================================================
-
-app.listen(PORT, () => {
-  console.log(`Backend en http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Backend en http://0.0.0.0:${PORT}`);
 });

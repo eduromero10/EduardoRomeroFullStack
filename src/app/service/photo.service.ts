@@ -10,14 +10,13 @@ import {
   providedIn: 'root',
 })
 export class PhotoService {
-  // Sacar foto con la cámara y devolverla como File
   async takePhoto(): Promise<File | null> {
     try {
       const photo: Photo = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
         resultType: CameraResultType.Uri,
-        source: CameraSource.Camera, // Cámara del móvil
+        source: CameraSource.Camera, 
       });
 
       if (!photo.webPath) {

@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PhotoService } from '../service/photo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-acount',
@@ -26,19 +27,17 @@ export class CreateAcountPage {
     private photoService: PhotoService
   ) {}
 
-  // Imagen desde galería / archivos
+
   onFileChange(event: any) {
     this.imgFile = event.target.files[0] ?? null;
   }
 
-  // Sacar foto con la cámara del móvil
+  
   async onTakePhoto() {
     this.takingPhoto = true;
     try {
       const file = await this.photoService.takePhoto();
-      if (file) {
-        this.imgFile = file;
-      }
+      if (file) this.imgFile = file;
     } finally {
       this.takingPhoto = false;
     }
@@ -54,11 +53,9 @@ export class CreateAcountPage {
     formData.append('username', this.username);
     formData.append('email', this.email);
     formData.append('password', this.password);
-    if (this.imgFile) {
-      formData.append('profile_image', this.imgFile);
-    }
+    if (this.imgFile) formData.append('profile_image', this.imgFile);
 
-    this.http.post('http://localhost:3000/api/users', formData).subscribe({
+    this.http.post(`${environment.apiUrl}/api/users`, formData).subscribe({
       next: () => {
         alert('Cuenta creada');
         this.router.navigate(['/']);

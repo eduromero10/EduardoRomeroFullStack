@@ -1,6 +1,6 @@
 <ion-content class="booklist-bg">
 
-  <!-- Top bar -->
+  
   <div class="top-bar">
     <button class="avatar-btn" (click)="goToMyProfile()">
       <img [src]="avatarUrl" alt="avatar" class="avatar-img" />
@@ -20,12 +20,8 @@
       <div class="search-row">
         <div class="search-input-wrapper">
           <ion-icon name="search-outline" class="icon-inline"></ion-icon>
-          <input
-            type="text"
-            [(ngModel)]="userSearchTerm"
-            (input)="onUserSearchChange()"
-            placeholder="Nombre de usuario"
-          />
+          <input type="text" [(ngModel)]="userSearchTerm" (input)="onUserSearchChange()"
+            placeholder="Nombre de usuario" />
           <button *ngIf="userSearchTerm" class="clear-btn" (click)="clearUserSearch()">
             ✕
           </button>
@@ -34,14 +30,8 @@
 
       <!-- desplegable -->
       <ul *ngIf="showUserSuggestions" class="suggestions-list">
-        <li
-          *ngFor="let u of userSuggestions"
-          (click)="selectUserFromSuggestions(u)"
-        >
-          <img
-            [src]="u.profile_image || 'assets/default-avatar.png'"
-            class="suggestion-avatar"
-          />
+        <li *ngFor="let u of userSuggestions" (click)="selectUserFromSuggestions(u)">
+          <img [src]="u.profile_image || 'assets/default-avatar.png'" class="suggestion-avatar" />
           <span>{{ u.username }}</span>
         </li>
       </ul>
@@ -58,12 +48,8 @@
       <div class="search-row">
         <div class="search-input-wrapper">
           <ion-icon name="search-outline" class="icon-inline"></ion-icon>
-          <input
-            type="text"
-            [(ngModel)]="bookSearchTerm"
-            (input)="onBookSearchChange()"
-            placeholder="Buscar libro por nombre"
-          />
+          <input type="text" [(ngModel)]="bookSearchTerm" (input)="onBookSearchChange()"
+            placeholder="Buscar libro por nombre" />
         </div>
       </div>
 
@@ -77,22 +63,13 @@
       <div class="divider"></div>
 
       <div class="book-list">
-        <div
-          class="book-item"
-          *ngFor="let book of filteredBooks"
-          (click)="selectBook(book)"
-        >
-          <img
-            [src]="book.cover_url || 'assets/default-cover.png'"
-            alt="Portada"
-            class="book-cover"
-          />
+        <div class="book-item" *ngFor="let book of filteredBooks" (click)="selectBook(book)">
+          <img [src]="book.cover_url || 'assets/default-cover.png'" alt="Portada" class="book-cover" />
 
           <div class="book-info">
             <h3 class="book-title">{{ book.title }}</h3>
             <p class="book-author">{{ book.author }}</p>
             <p class="book-rating">
-              ⭐
               <span *ngIf="book.review_count > 0">
                 {{ book.avg_rating | number : '1.1-1' }} ({{ book.review_count }})
               </span>
@@ -100,6 +77,7 @@
                 Sin valoraciones
               </span>
             </p>
+
           </div>
         </div>
       </div>
@@ -117,20 +95,10 @@
       </p>
 
       <label class="field-label">Valoración (0 - 10)</label>
-      <input
-        type="number"
-        min="0"
-        max="10"
-        [(ngModel)]="ratingInput"
-        class="input-basic"
-      />
+      <input type="number" min="0" max="10" [(ngModel)]="ratingInput" class="input-basic" />
 
       <label class="field-label">Comentario</label>
-      <textarea
-        rows="4"
-        [(ngModel)]="commentInput"
-        class="input-basic textarea-basic"
-      ></textarea>
+      <textarea rows="4" [(ngModel)]="commentInput" class="input-basic textarea-basic"></textarea>
 
       <label class="field-label">Foto opcional del libro:</label>
       <input type="file" (change)="onBookImageChange($event)" />

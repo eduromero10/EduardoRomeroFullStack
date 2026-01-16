@@ -8,7 +8,7 @@
   margin: 0 auto;
 }
 
-/* tarjeta cabecera */
+/* cabecera */
 
 .profile-header-card {
   display: flex;
@@ -50,23 +50,38 @@
   color: #9ca3af;
 }
 
-/* orden */
+/* ORDENACIÓN*/
+
 
 .order-card {
   margin-top: 14px;
   margin-bottom: 10px;
   background: #020617;
   border-radius: 14px;
-  padding: 6px 6px 10px;
+  padding: 6px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.9);
   border: 1px solid rgba(55, 65, 81, 0.8);
 }
-
 ion-segment {
+  --background: #ffffff;
+  --indicator-color: transparent;
+  border-radius: 999px;
+  padding: 4px;
+}
+
+ion-segment-button.segment-button-checked {
+  border: 2px solid #1d4ed8;
+  border-radius: 999px;
+}
+ion-segment-button {
   --background: transparent;
-  --indicator-color: #1d4ed8;
-  --color-checked: #f9fafb;
-  --color: #e5e7eb;
+  --color: #111827;
+  --color-checked: #111827;
+  --border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 /* reseñas */
@@ -145,9 +160,8 @@ ion-segment {
   background: #111827;
 }
 
-/* ========================= */
-/*   BOTÓN VOLVER (IONIC)   */
-/* ========================= */
+
+/*   BOTÓN VOLVER   */
 
 .back-btn-container {
   width: 100%;
@@ -158,12 +172,12 @@ ion-segment {
 }
 
 ion-button.back-btn {
-  --background: linear-gradient(180deg, #1b2436 0%, #0f1828 100%);
-  --background-hover: linear-gradient(180deg, #26324a 0%, #182335 100%);
-  --background-activated: linear-gradient(180deg, #26324a 0%, #182335 100%);
+  --background: #1f2937;             
+  --background-hover: #374151;
+  --background-activated: #111827;
   --border-radius: 999px;
   --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
-  --color: #e5e7eb;
+  --color: #ffffff;                  
   --padding-top: 12px;
   --padding-bottom: 12px;
 

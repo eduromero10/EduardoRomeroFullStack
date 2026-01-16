@@ -3,23 +3,19 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    RouterLink,   // 👈 necesario para routerLink en el botón
-  ],
+  imports: [IonicModule, CommonModule, FormsModule, HttpClientModule, RouterLink],
 })
-export class ProfilePage implements OnInit {
 
+export class ProfilePage implements OnInit {
+  
   avatarUrl = 'assets/default-avatar.png';
   titleText = 'Mi perfil';
   isCurrentUser = false;
@@ -37,6 +33,7 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -57,19 +54,25 @@ export class ProfilePage implements OnInit {
     this.loadReviews();
   }
 
+  goBackToBooks(): void {
+    this.router.navigate(['/book-list']);
+  }
+
   loadUser() {
-    this.http.get(`http://localhost:3000/api/users/${this.userId}`)
-      .subscribe((user: any) => {
+    this.http
+      .get<any>(`${environment.apiUrl}/api/users/${this.userId}`)
+      .subscribe((user) => {
         this.viewedUser = user;
-        if (user.profile_image) this.avatarUrl = user.profile_image;
+        if (user?.profile_image) this.avatarUrl = user.profile_image;
       });
   }
 
   loadReviews() {
     const params = new HttpParams().set('order', this.order);
 
-    this.http.get<any[]>(`http://localhost:3000/api/users/${this.userId}/reviews`, { params })
-      .subscribe(r => this.reviews = r);
+    this.http
+      .get<any[]>(`${environment.apiUrl}/api/users/${this.userId}/reviews`, { params })
+      .subscribe((r) => (this.reviews = r));
   }
 
   onOrderChange(event: any) {
@@ -94,19 +97,22 @@ export class ProfilePage implements OnInit {
   updateSelectedReview() {
     if (!this.selectedReview) return;
 
-    this.http.put(`http://localhost:3000/api/reviews/${this.selectedReview.id}`, {
-      rating: this.editRating,
-      comment: this.editComment
-    }).subscribe(() => {
-      alert('Actualizada');
-      this.loadReviews();
-    });
+    this.http
+      .put(`${environment.apiUrl}/api/reviews/${this.selectedReview.id}`, {
+        rating: this.editRating,
+        comment: this.editComment,
+      })
+      .subscribe(() => {
+        alert('Actualizada');
+        this.loadReviews();
+      });
   }
 
   deleteSelectedReview() {
     if (!this.selectedReview) return;
 
-    this.http.delete(`http://localhost:3000/api/reviews/${this.selectedReview.id}`)
+    this.http
+      .delete(`${environment.apiUrl}/api/reviews/${this.selectedReview.id}`)
       .subscribe(() => {
         alert('Eliminada');
         this.loadReviews();

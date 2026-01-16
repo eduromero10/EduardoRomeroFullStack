@@ -120,7 +120,7 @@
   font-size: 14px;
 }
 
-/* sugerencias usuarios */
+/* ========= SUGERENCIAS USUARIO ========= */
 
 .suggestions-list {
   margin: 4px 0 8px;
@@ -157,7 +157,7 @@
   object-fit: cover;
 }
 
-/* botón buscar perfil */
+/* ========= BOTÓN BUSCAR PERFIL ========= */
 
 .btn-search-profile {
   width: 100%;
@@ -220,6 +220,7 @@
   border-radius: 12px;
   background: #020617;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
 }
 
 .book-item:hover {
@@ -258,7 +259,7 @@
   color: #facc15;
 }
 
-/* ========= Reseña ========= */
+/* ========= DEJAR RESEÑA ========= */
 
 .card-review .selected-book {
   font-size: 13px;
@@ -306,30 +307,18 @@
   color: #f9fafb;
 }
 
-/* ========= ARREGLO INPUT FILE ========= */
-/* Solo afecta al "Elegir archivo" y al nombre del fichero */
+/* ========= INPUT FILE ========= */
 
-input[type="file"] {
-  color: #f9fafb;                    /* nombre del archivo en blanco */
-  background-color: #020617;         /* mismo fondo oscuro del card */
+input[type='file'] {
+  color: #f9fafb;
+  background-color: #020617;
   padding: 4px 6px;
   border-radius: 6px;
   font-size: 13px;
 }
 
-/* Botón "Elegir archivo" en claro */
-input[type="file"]::-webkit-file-upload-button {
-  background: #e5e7eb;
-  color: #020617;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Firefox / otros navegadores */
-input[type="file"]::file-selector-button {
+input[type='file']::-webkit-file-upload-button,
+input[type='file']::file-selector-button {
   background: #e5e7eb;
   color: #020617;
   border: none;

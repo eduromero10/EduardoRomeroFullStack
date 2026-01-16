@@ -1,7 +1,7 @@
 <ion-content class="profile-bg">
   <div class="profile-wrapper">
 
-    <!-- CABECERA PERFIL -->
+    <!-- CABECERA -->
     <div class="profile-header-card">
       <div class="avatar-wrapper">
         <img [src]="avatarUrl" alt="avatar" class="profile-avatar" />
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <!-- ORDENAR RESEÑAS -->
+    <!-- ORDENAR -->
     <div class="order-card">
       <ion-segment [value]="order" (ionChange)="onOrderChange($event)">
         <ion-segment-button value="desc">
@@ -46,7 +46,7 @@
           <div class="review-header">
             <h3 class="review-book">{{ r.book_title }}</h3>
             <div class="review-rating">
-              ⭐ {{ r.rating }}/10
+              Valoración: {{ r.rating }}/10
             </div>
           </div>
 
@@ -68,15 +68,17 @@
       </div>
     </div>
 
-    <!-- EDICIÓN (SOLO MI PERFIL) -->
+    <!-- EDICIÓN -->
     <div class="edit-card" *ngIf="isCurrentUser">
       <h2 class="edit-title">Editar / borrar reseña</h2>
 
       <p class="edit-selected" *ngIf="!selectedReview">
         Toca una reseña de la lista para editarla.
       </p>
+
       <p class="edit-subtitle" *ngIf="selectedReview">
-        Editando reseña de: <strong>{{ selectedReview.book_title }}</strong>
+        Editando reseña de:
+        <strong>{{ selectedReview.book_title }}</strong>
       </p>
 
       <label class="field-label">Valoración (0 - 10)</label>
@@ -99,18 +101,25 @@
         <button class="btn-update" (click)="updateSelectedReview()">
           Actualizar
         </button>
+
         <button class="btn-delete" (click)="deleteSelectedReview()">
           Eliminar
         </button>
+
         <button class="btn-clear" (click)="clearSelection()">
           Limpiar selección
         </button>
-      </div>
 
-      <!-- 🔵 NUEVO BOTÓN: VOLVER A LA LISTA DE LIBROS -->
-      <button class="btn-back-books" routerLink="/book-list">
-        ← Volver a la lista de libros
-      </button>
+        <div class="back-btn-container">
+          <ion-button
+            expand="block"
+            class="back-btn"
+            (click)="goBackToBooks()"
+          >
+            VOLVER A LA LISTA DE LIBROS
+          </ion-button>
+        </div>
+      </div>
     </div>
 
   </div>

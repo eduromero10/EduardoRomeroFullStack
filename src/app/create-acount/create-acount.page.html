@@ -28,21 +28,22 @@
     <div class="file-box">
       <label>Foto de perfil:</label>
 
-      <!-- Elegir desde archivos / galería -->
+      <!-- galería -->
       <input
         type="file"
         accept="image/*"
         (change)="onFileChange($event)"
-      />
+      >
+      <input/>
 
-      <!-- Sacar foto con la cámara -->
+      <!--cámara -->
       <button
         type="button"
         class="camera-btn"
         (click)="onTakePhoto()"
         [disabled]="takingPhoto"
       >
-        {{ takingPhoto ? 'Abriendo cámara...' : 'Usar cámara' }}
+        {{ takingPhoto ? 'Abriendo cámara...' : 'USAR CÁMARA' }}
       </button>
 
       <p class="file-name" *ngIf="imgFile">

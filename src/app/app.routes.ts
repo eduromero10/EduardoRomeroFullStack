@@ -25,14 +25,15 @@ export const routes: Routes = [
         (m) => m.ProfilePage
       ),
   },
-  {
-    path: 'profile/:id',
-    loadComponent: () =>
-      import('./profile/profile.page').then((m) => m.ProfilePage),
-  },
+  
   {
     path: 'otherprofile/:id',
     loadComponent: () =>
       import('./otherprofile/otherprofile.page').then((m) => m.OtherProfilePage),
+  },
+
+   {
+    path: '**',
+    redirectTo: '',
   },
 ];

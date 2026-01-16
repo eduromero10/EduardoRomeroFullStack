@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-other-profile',
@@ -36,7 +37,7 @@ export class OtherProfilePage implements OnInit {
 
   loadUser(): void {
     this.http
-      .get<any>(`http://localhost:3000/api/users/${this.userId}`)
+      .get<any>(`${environment.apiUrl}/api/users/${this.userId}`)
       .subscribe({
         next: (user) => {
           this.viewedUser = user;
@@ -52,7 +53,7 @@ export class OtherProfilePage implements OnInit {
     const params = new HttpParams().set('order', this.order);
 
     this.http
-      .get<any[]>(`http://localhost:3000/api/users/${this.userId}/reviews`, {
+      .get<any[]>(`${environment.apiUrl}/api/users/${this.userId}/reviews`, {
         params,
       })
       .subscribe({
@@ -68,8 +69,8 @@ export class OtherProfilePage implements OnInit {
     this.loadReviews();
   }
 
-  // 🔙 FUNCIÓN PARA VOLVER
-  goBack() {
+  //VOLVER
+  goBackToBooks() {
     this.router.navigate(['/book-list']);
   }
 }

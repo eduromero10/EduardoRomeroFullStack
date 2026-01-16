@@ -1,8 +1,6 @@
 <ion-content class="profile-bg">
 
   <div class="profile-wrapper">
-
-    <!-- Cabecera -->
     <section class="profile-header-card">
       <div class="avatar-wrapper">
         <img [src]="avatarUrl" alt="avatar" class="profile-avatar" />
@@ -32,7 +30,7 @@
       </ion-segment>
     </section>
 
-    <!-- Lista de reseñas -->
+    <!--Reseñas-->
     <section class="reviews-card">
       <div *ngIf="reviews.length === 0" class="no-reviews">
         Este usuario aún no tiene reseñas.
@@ -42,7 +40,7 @@
         <div class="review-main">
           <div class="review-header">
             <h3 class="review-book">{{ r.book_title }}</h3>
-            <span class="review-rating">⭐ {{ r.rating }}/10</span>
+            <span class="review-rating">Valoración: {{ r.rating }}/10</span>
           </div>
 
           <p class="review-date">
@@ -54,21 +52,14 @@
           </p>
         </div>
 
-        <img
-          *ngIf="r.image_url"
-          [src]="r.image_url"
-          alt="foto libro"
-          class="review-image"
-        />
+        <img *ngIf="r.image_url" [src]="r.image_url" alt="foto libro" class="review-image" />
       </div>
     </section>
 
-    <!-- 🔙 BOTÓN VOLVER -->
-    <div class="back-btn-wrapper">
-      <button class="back-button" (click)="goBack()">
+    <div class="back-btn-container">
+      <ion-button expand="block" class="back-btn" (click)="goBackToBooks()">
         ← VOLVER A LA LISTA DE LIBROS
-      </button>
+      </ion-button>
     </div>
-
   </div>
 </ion-content>
