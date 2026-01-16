@@ -13,7 +13,7 @@
 
   <div class="page-wrapper">
 
-    <!-- BUSCAR USUARIO -->
+    <!--BUSCAR USUARIO-->
     <section class="card card-search-user">
       <label class="section-label">Buscar usuario</label>
 
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <!-- desplegable -->
+      <!--desplegable-->
       <ul *ngIf="showUserSuggestions" class="suggestions-list">
         <li *ngFor="let u of userSuggestions" (click)="selectUserFromSuggestions(u)">
           <img [src]="u.profile_image || 'assets/default-avatar.png'" class="suggestion-avatar" />
@@ -41,7 +41,7 @@
       </button>
     </section>
 
-    <!-- LIBROS -->
+    <!--LIBROS-->
     <section class="card card-books">
       <h2 class="card-title">Libros</h2>
 
@@ -83,7 +83,7 @@
       </div>
     </section>
 
-    <!-- DEJAR RESEÑA -->
+    <!--DEJAR RESEÑA-->
     <section class="card card-review">
       <h2 class="card-title">Dejar reseña</h2>
 
